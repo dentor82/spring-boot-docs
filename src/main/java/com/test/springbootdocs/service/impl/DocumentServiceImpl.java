@@ -1,8 +1,8 @@
-package com.test.demo.service.impl;
+package com.test.springbootdocs.service.impl;
 
-import com.test.demo.entity.Document;
-import com.test.demo.repository.DocumentRepository;
-import com.test.demo.service.DocumentService;
+import com.test.springbootdocs.entity.Document;
+import com.test.springbootdocs.repository.DocumentRepository;
+import com.test.springbootdocs.service.DocumentService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

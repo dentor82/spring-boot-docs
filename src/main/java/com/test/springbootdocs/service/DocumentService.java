@@ -1,6 +1,6 @@
-package com.test.demo.service;
+package com.test.springbootdocs.service;
 
-import com.test.demo.entity.Document;
+import com.test.springbootdocs.entity.Document;
 
 import java.util.List;
 

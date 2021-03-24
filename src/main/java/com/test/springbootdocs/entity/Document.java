@@ -1,4 +1,4 @@
-package com.test.demo.entity;
+package com.test.springbootdocs.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;

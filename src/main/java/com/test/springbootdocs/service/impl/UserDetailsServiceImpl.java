@@ -1,7 +1,7 @@
-package com.test.demo.service.impl;
+package com.test.springbootdocs.service.impl;
 
-import com.test.demo.entity.User;
-import com.test.demo.repository.UserRepository;
+import com.test.springbootdocs.entity.User;
+import com.test.springbootdocs.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

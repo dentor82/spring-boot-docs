@@ -1,6 +1,6 @@
-package com.test.demo.repository;
+package com.test.springbootdocs.repository;
 
-import com.test.demo.entity.Document;
+import com.test.springbootdocs.entity.Document;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

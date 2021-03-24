@@ -1,6 +1,6 @@
-package com.test.demo.controller;
+package com.test.springbootdocs.controller;
 
-import com.test.demo.service.DocumentService;
+import com.test.springbootdocs.service.DocumentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

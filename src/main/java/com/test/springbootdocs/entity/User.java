@@ -1,4 +1,4 @@
-package com.test.demo.entity;
+package com.test.springbootdocs.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

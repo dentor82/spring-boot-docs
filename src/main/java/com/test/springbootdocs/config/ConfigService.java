@@ -1,7 +1,7 @@
-package com.test.demo.config;
+package com.test.springbootdocs.config;
 
-import com.test.demo.repository.UserRepository;
-import com.test.demo.service.impl.UserDetailsServiceImpl;
+import com.test.springbootdocs.repository.UserRepository;
+import com.test.springbootdocs.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
