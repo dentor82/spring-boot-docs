@@ -17,6 +17,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	implementation 'org.webjars:bootstrap:4.6.0-1'
+	implementation 'org.webjars:webjars-locator:0.1'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl'
 	implementation 'org.modelmapper:modelmapper:2.3.6'

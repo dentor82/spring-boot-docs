@@ -1,9 +1,9 @@
 package com.test.springbootdocs.service;
 
-import com.test.springbootdocs.entity.Document;
+import com.test.springbootdocs.dto.DocumentDto;
 
 import java.util.List;
 
 public interface DocumentService {
-    List<Document> getList();
+    List<DocumentDto> getList();
 }

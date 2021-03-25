@@ -22,4 +22,16 @@ public class Document {
 
     @Lob
     private String description;
+
+    public Document() {
+
+    }
+
+    public Document(String name, LocalDate date, User user, String fileName, String description) {
+        this.name = name;
+        this.date = date;
+        this.user = user;
+        this.fileName = fileName;
+        this.description = description;
+    }
 }

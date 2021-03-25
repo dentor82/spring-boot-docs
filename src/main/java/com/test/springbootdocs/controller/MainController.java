@@ -19,6 +19,7 @@ public class MainController {
     @RequestMapping(value = { "/" }, method = RequestMethod.GET)
     public ModelAndView welcomePage(Model model) {
         ModelAndView retValue = new ModelAndView();
+        retValue.addObject("documents", this.documentService.getList());
         retValue.setViewName("index");
         return retValue;
     }
