@@ -1,6 +1,5 @@
 package com.test.springbootdocs.controller;
 
-import com.test.springbootdocs.dto.DocumentDto;
 import com.test.springbootdocs.dto.PostDocumentDto;
 import com.test.springbootdocs.dto.UserDto;
 import com.test.springbootdocs.service.DocumentService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller

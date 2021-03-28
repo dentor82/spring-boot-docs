@@ -5,7 +5,6 @@ import com.test.springbootdocs.entity.User;
 import com.test.springbootdocs.repository.UserRepository;
 import com.test.springbootdocs.service.UserService;
 import com.test.springbootdocs.utils.ObjectMapperUtil;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
