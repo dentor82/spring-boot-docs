@@ -6,18 +6,20 @@
     <meta charset="UTF-8">
     <title>Документы</title>
     <link rel='stylesheet' href='<%= org.webjars.AssetLocator.getWebJarPath("css/bootstrap.min.css") %>'>
-    <link rel='stylesheet' href='<%= org.webjars.AssetLocator.getWebJarPath("css/bootstrap-glyphicons.css") %>'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("popper.js") %>'></script>
     <script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("jquery.min.js") %>'></script>
     <script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("js/bootstrap.min.js") %>'></script>
 </head>
 <body>
+    <%@include file="menu.jsp" %>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Название</th>
-            <th>Дата</th>
-            <th>Автор</th>
-            <th>Описание</th>
+            <th><a href="/?sort=name">Название</a></th>
+            <th><a href="/?sort=date">Дата</a></th>
+            <th><a href="/?sort=user_userName">Автор</a></th>
+            <th><a href="/?sort=description">Описание</a></th>
             <th>Файл</th>
         </tr>
     </thead>
@@ -28,7 +30,10 @@
                 <td>${doc.getDate()}</td>
                 <td>${doc.getAuthor()}</td>
                 <td>${doc.getDescription()}</td>
-                <td></td>
+                <td>${doc.getFileName()}
+                    <a href="/download?documentId=${doc.getId()}"><i class="bi bi-file-arrow-down"></i></a>
+                    <a href="/view?documentId=${doc.getId()}"><i class="bi bi-file-play"></i></a>
+                </td>
             </tr>
         </c:forEach>
     </tbody>

@@ -1,10 +1,11 @@
 package com.test.springbootdocs.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
-public class DocumentDto {
+public class PostDocumentDto {
     private long id;
 
     private String name;
@@ -14,7 +15,7 @@ public class DocumentDto {
 
     private UserDto user;
 
-    private String fileName;
+    private MultipartFile file;
 
     private String description;
 
@@ -34,8 +35,8 @@ public class DocumentDto {
         return user;
     }
 
-    public String getFileName() {
-        return fileName;
+    public MultipartFile getFile() {
+        return file;
     }
 
     public String getDescription() {
@@ -54,8 +55,8 @@ public class DocumentDto {
         this.user = user;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 
     public void setDescription(String description) {

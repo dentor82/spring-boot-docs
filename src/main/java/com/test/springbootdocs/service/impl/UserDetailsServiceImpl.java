@@ -1,15 +1,21 @@
 package com.test.springbootdocs.service.impl;
 
+import com.test.springbootdocs.dto.UserDto;
 import com.test.springbootdocs.entity.User;
 import com.test.springbootdocs.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.test.springbootdocs.service.UserService;
+import com.test.springbootdocs.utils.ObjectMapperUtil;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
 
@@ -22,5 +28,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepository.findByUserName(username);
+    }
+
+    @Override
+    public List<UserDto> getList() {
+        return new ArrayList<>(
+                ObjectMapperUtil
+                        .mapAll(this.userRepository
+                                .findAll(), UserDto.class)
+        );
     }
 }
