@@ -5,6 +5,7 @@ import com.test.springbootdocs.dto.UserDto;
 import com.test.springbootdocs.service.DocumentService;
 import com.test.springbootdocs.service.StorageService;
 import com.test.springbootdocs.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,14 +28,14 @@ public class DocumentController {
 
     @RequestMapping(value = "/document", method = RequestMethod.GET)
     public ModelAndView document() {
-        ModelAndView modelAndView = new ModelAndView("document", "command", new PostDocumentDto());
-        modelAndView.addObject("list", userService.getList());
+        ModelAndView retValue = new ModelAndView("document", "command", new PostDocumentDto());
+        retValue.addObject("list", userService.getList());
 
-        return modelAndView;
+        return retValue;
     }
 
     @RequestMapping(value = "/addDocument", method = RequestMethod.POST)
-    public void addDocument(@RequestParam(value = "author") Long authorId,
+    public String addDocument(@RequestParam(value = "author") Long authorId,
                             @ModelAttribute PostDocumentDto document,
                             ModelMap model) {
 
@@ -42,6 +43,6 @@ public class DocumentController {
         storageService.store(document.getFile());
         this.documentService.save(document);
 
-        //return "result";
+        return "redirect:/";
     }
 }

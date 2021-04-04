@@ -9,6 +9,11 @@ import com.test.springbootdocs.repository.UserRepository;
 import com.test.springbootdocs.service.DocumentService;
 import com.test.springbootdocs.utils.ObjectMapperUtil;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.acls.domain.BasePermission;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,13 +25,24 @@ public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository documentRepository;
     private final UserRepository userRepository;
+    private final PermissionService permissionService;
 
-    public DocumentServiceImpl(DocumentRepository documentRepository, UserRepository userRepository) {
+    public DocumentServiceImpl(DocumentRepository documentRepository, UserRepository userRepository, PermissionService permissionService) {
         this.documentRepository = documentRepository;
         this.userRepository = userRepository;
+        this.permissionService = permissionService;
         if (!this.documentRepository.existsById(1L)) {
             User admin = this.userRepository.findById(1L).get();
-            this.documentRepository.save(new Document("Название", LocalDate.now(), admin, "test.pdf", "Описание"));
+            Document document = new Document("Название", LocalDate.now(), admin, "test.pdf", "Описание");
+            this.documentRepository.save(document);
+            Authentication request = new UsernamePasswordAuthenticationToken("admin", "admin", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+            SecurityContextHolder.getContext().setAuthentication(request);
+            this.permissionService.addPermissionForUser(document.getClass(), document.getId(),
+                    BasePermission.READ, document.getUser().getUsername());
+            this.permissionService.addPermissionForUser(document.getClass(), document.getId(),
+                    BasePermission.WRITE, document.getUser().getUsername());
+            this.permissionService.addPermissionForUser(document.getClass(),
+                    document.getId(), BasePermission.DELETE, document.getUser().getUsername());
         }
     }
 
@@ -44,6 +60,15 @@ public class DocumentServiceImpl implements DocumentService {
     public void save(PostDocumentDto document) {
         Document newDocument = ObjectMapperUtil.map(document, Document.class);
         newDocument.setFileName(document.getFile().getOriginalFilename());
+        this.userRepository
+                .findById(document.getAuthor().getId())
+                .ifPresent(newDocument::setUser);
         this.documentRepository.save(newDocument);
+        this.permissionService.addPermissionForUser(newDocument.getClass(), newDocument.getId(),
+                BasePermission.READ, newDocument.getUser().getUsername());
+        this.permissionService.addPermissionForUser(newDocument.getClass(), newDocument.getId(),
+                BasePermission.WRITE, newDocument.getUser().getUsername());
+        this.permissionService.addPermissionForUser(newDocument.getClass(), newDocument.getId(),
+                BasePermission.DELETE, newDocument.getUser().getUsername());
     }
 }

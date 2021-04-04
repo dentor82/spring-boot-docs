@@ -3,6 +3,8 @@ package com.test.springbootdocs.dto;
 public class UserDto {
     private long id;
     private String userName;
+    private String password;
+    private String passwordConfirm;
 
     public UserDto() {}
 
@@ -22,8 +24,25 @@ public class UserDto {
         return this.userName;
     }
 
-    public void setUserName(String userName) {
+    public UserDto setUserName(String userName) {
         this.userName = userName;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     @Override
