@@ -16,13 +16,13 @@ public class UserValidator implements Validator {
     }
 
     @Override
-    public boolean supports(Class<?> aClass) {
-        return UserDto.class.equals(aClass);
+    public boolean supports(Class<?> clazz) {
+        return UserDto.class.equals(clazz);
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
-        UserDto user = (UserDto) o;
+    public void validate(Object target, Errors errors) {
+        UserDto user = (UserDto) target;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userName", "NotEmpty");
         if (user.getUserName().length() < 5 || user.getUserName().length() > 32) {

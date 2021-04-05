@@ -5,13 +5,13 @@ import com.test.springbootdocs.dto.UserDto;
 import com.test.springbootdocs.service.DocumentService;
 import com.test.springbootdocs.service.StorageService;
 import com.test.springbootdocs.service.UserService;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -28,21 +28,20 @@ public class DocumentController {
 
     @RequestMapping(value = "/document", method = RequestMethod.GET)
     public ModelAndView document() {
-        ModelAndView retValue = new ModelAndView("document", "command", new PostDocumentDto());
-        retValue.addObject("list", userService.getList());
+        ModelAndView retValue = new ModelAndView("document", "document", new PostDocumentDto());
 
         return retValue;
     }
 
     @RequestMapping(value = "/addDocument", method = RequestMethod.POST)
-    public String addDocument(@RequestParam(value = "author") Long authorId,
-                            @ModelAttribute PostDocumentDto document,
-                            ModelMap model) {
-
-        document.setUser(new UserDto(authorId));
+    public ModelAndView addDocument(@ModelAttribute PostDocumentDto document,
+                              BindingResult bindingResult) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDto userName = this.userService.findByUsername(authentication.getName());
+        document.setUser(userName);
         storageService.store(document.getFile());
         this.documentService.save(document);
 
-        return "redirect:/";
+        return new ModelAndView("redirect:/");
     }
 }

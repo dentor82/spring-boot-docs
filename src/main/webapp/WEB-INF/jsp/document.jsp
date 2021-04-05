@@ -18,13 +18,6 @@
                <td><form:input type="date" path = "date" /></td>
             </tr>
             <tr>
-               <td><form:label path = "author">Автор</form:label></td>
-                <td><form:select path="author">
-                        <form:options items="${list}" itemLabel="userName" itemValue="id" />
-                </form:select></td>
-
-            </tr>
-            <tr>
                 <td><form:label path = "file">Файл:</form:label></td>
                 <td><form:input type = "file" path = "file" /></td>
             </tr>
