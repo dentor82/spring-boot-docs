@@ -7,7 +7,7 @@
 
    <body>
       <h2>Новый документ</h2>
-      <form:form method = "POST" enctype="multipart/form-data" action = "/addDocument">
+      <form:form method = "POST" modelAttribute="document" enctype="multipart/form-data" action = "/addDocument">
          <table>
             <tr>
                <td><form:label path = "name">Наименование</form:label></td>
