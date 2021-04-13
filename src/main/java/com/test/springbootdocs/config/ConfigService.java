@@ -50,6 +50,7 @@ public class ConfigService extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .logout()
+                    .logoutSuccessUrl("/login?logout=true")
                     .permitAll();
     }
 }
