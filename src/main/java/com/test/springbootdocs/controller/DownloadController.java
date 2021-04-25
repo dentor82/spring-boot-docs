@@ -8,6 +8,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.acls.domain.BasePermission;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +34,8 @@ public class DownloadController {
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public ResponseEntity<byte[]> viewFile(@RequestParam Long documentId) throws IOException {
-        Optional<Document> document = documentRepository.findById(documentId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Document> document = Optional.ofNullable(documentRepository.findByIdAccess(documentId, authentication.getName(), BasePermission.READ.getMask()));
         return document.map(Document::getFileName)
                 .map(this::viewResponse)
                 .orElseGet(this::viewNotFound);
@@ -39,7 +43,8 @@ public class DownloadController {
 
     @RequestMapping(path = "/download", method = RequestMethod.GET)
     public ResponseEntity<Resource> download(@RequestParam Long documentId) throws IOException {
-        Optional<Document> document = documentRepository.findById(documentId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Document> document = Optional.ofNullable(documentRepository.findByIdAccess(documentId, authentication.getName(), BasePermission.READ.getMask()));
         return document.map(Document::getFileName)
                 .map(this::downloadResponse)
                 .orElseGet(this::viewNotFound);

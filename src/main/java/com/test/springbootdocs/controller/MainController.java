@@ -1,6 +1,8 @@
 package com.test.springbootdocs.controller;
 
 import com.test.springbootdocs.service.DocumentService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +28,8 @@ public class MainController {
         List<String> columns = new ArrayList<>();
         Optional.ofNullable(columnSort)
                 .map(columns::add);
-        retValue.addObject("documents", this.documentService.getList(columns.toArray(String[]::new)));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        retValue.addObject("documents", this.documentService.getList(authentication.getName(), columns.toArray(String[]::new)));
         retValue.setViewName("index");
 
         return retValue;

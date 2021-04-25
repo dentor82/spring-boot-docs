@@ -28,6 +28,11 @@ public class PermissionService {
         this.transactionManager = transactionManager;
     }
 
+    public Object getObj(Long documentId){
+
+        return new Document(documentId);
+    }
+
     public void addPermissionForUser(Class objectClass, Long objectId, Permission permission, String username) {
         final Sid sid = new PrincipalSid(username);
         addPermissionForSid(objectClass, objectId, permission, sid);

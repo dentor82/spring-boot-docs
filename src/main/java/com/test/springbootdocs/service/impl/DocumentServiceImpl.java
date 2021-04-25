@@ -41,18 +41,16 @@ public class DocumentServiceImpl implements DocumentService {
                     BasePermission.READ, document.getUser().getUsername());
             this.permissionService.addPermissionForUser(document.getClass(), document.getId(),
                     BasePermission.WRITE, document.getUser().getUsername());
-            this.permissionService.addPermissionForUser(document.getClass(),
-                    document.getId(), BasePermission.DELETE, document.getUser().getUsername());
         }
     }
 
     @Override
-    public List<DocumentDto> getList(String... columns) {
+    public List<DocumentDto> getList(String userName, String... columns) {
         Sort sort = Sort.by(columns);
         return new ArrayList<>(
                 ObjectMapperUtil
                         .mapAll(this.documentRepository
-                                .findAll(sort), DocumentDto.class)
+                                .findAllDocumentByAccess(sort, userName, BasePermission.READ.getMask()), DocumentDto.class)
         );
     }
 
@@ -68,7 +66,5 @@ public class DocumentServiceImpl implements DocumentService {
                 BasePermission.READ, newDocument.getUser().getUsername());
         this.permissionService.addPermissionForUser(newDocument.getClass(), newDocument.getId(),
                 BasePermission.WRITE, newDocument.getUser().getUsername());
-        this.permissionService.addPermissionForUser(newDocument.getClass(), newDocument.getId(),
-                BasePermission.DELETE, newDocument.getUser().getUsername());
     }
 }

@@ -28,6 +28,10 @@ public class Document {
 
     }
 
+    public Document(Long id) {
+        this.id = id;
+    }
+
     public Document(String name, LocalDate date, User user, String fileName, String description) {
         this.name = name;
         this.date = date;

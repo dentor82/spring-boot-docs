@@ -5,9 +5,7 @@ import org.springframework.security.acls.model.Permission;
 
 public enum Mask {
     READ (BasePermission.READ),
-    WRITE (BasePermission.WRITE),
-    CREATE (BasePermission.CREATE),
-    DELETE (BasePermission.DELETE);
+    WRITE (BasePermission.WRITE);
 
     private Permission permission;
 
