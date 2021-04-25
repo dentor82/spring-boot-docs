@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "acl_sid")
-public class aclSid {
+public class AclSid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
