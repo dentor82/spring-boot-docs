@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Optional;
 
 @Controller
@@ -57,14 +57,15 @@ public class DownloadController {
 
     private ResponseEntity<Resource> downloadResponse(String fileName) {
         File file = storageService.getFilePath(fileName);
-        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+        try {
             HttpHeaders header = new HttpHeaders();
             header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName());
             header.add("Cache-Control", "no-cache, no-store, must-revalidate");
             header.add("Pragma", "no-cache");
             header.add("Expires", "0");
 
-            ByteArrayResource resource = new ByteArrayResource(fileInputStream.readAllBytes());
+            byte[] buff = Files.readAllBytes(file.toPath());
+            ByteArrayResource resource = new ByteArrayResource(buff);
 
             return ResponseEntity.ok()
                     .headers(header)
@@ -79,15 +80,16 @@ public class DownloadController {
 
     private ResponseEntity<byte[]> viewResponse(String fileName) {
         File file = storageService.getFilePath(fileName);
-        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+        try {
             String extension = StringUtils.getFilenameExtension(file.getName());
 
+            byte[] buff = Files.readAllBytes(file.toPath());
             return ResponseEntity
                     .ok()
-                    .contentLength(fileInputStream.available())
+                    .contentLength(buff.length)
                     .contentType(
                             MediaType.parseMediaType("application/" + extension))
-                    .body(fileInputStream.readAllBytes());
+                    .body(buff);
         } catch (IOException e) {
         }
 

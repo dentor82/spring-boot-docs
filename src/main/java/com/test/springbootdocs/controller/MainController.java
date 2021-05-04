@@ -29,7 +29,9 @@ public class MainController {
         Optional.ofNullable(columnSort)
                 .map(columns::add);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        retValue.addObject("documents", this.documentService.getList(authentication.getName(), columns.toArray(String[]::new)));
+        retValue.addObject("documents",
+                this.documentService.getList(authentication.getName(),
+                columns.toArray(new String[0])));
         retValue.setViewName("index");
 
         return retValue;

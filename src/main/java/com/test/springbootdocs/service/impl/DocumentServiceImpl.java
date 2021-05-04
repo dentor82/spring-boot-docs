@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -35,7 +36,7 @@ public class DocumentServiceImpl implements DocumentService {
             User admin = this.userRepository.findById(1L).get();
             Document document = new Document("Название", LocalDate.now(), admin, "test.pdf", "Описание");
             this.documentRepository.save(document);
-            Authentication request = new UsernamePasswordAuthenticationToken("admin", "admin", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+            Authentication request = new UsernamePasswordAuthenticationToken("admin", "admin", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
             SecurityContextHolder.getContext().setAuthentication(request);
             this.permissionService.addPermissionForUser(document.getClass(), document.getId(),
                     BasePermission.READ, document.getUser().getUsername());

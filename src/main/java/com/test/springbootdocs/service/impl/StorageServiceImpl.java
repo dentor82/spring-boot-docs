@@ -15,8 +15,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public void store(MultipartFile file) {
-        Path filePath = Path.of(path, file.getOriginalFilename());
-        File newFile = filePath.toFile();
+        File newFile = new File(path, file.getOriginalFilename());
         try (FileOutputStream fileOutputStream = new FileOutputStream(newFile)) {
             fileOutputStream.write(file.getBytes());
         } catch (IOException e) {
@@ -26,7 +25,6 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public File getFilePath(String fileName) {
-        Path filePath = Path.of(path, fileName);
-        return filePath.toFile();
+        return new File(path, fileName);
     }
 }
